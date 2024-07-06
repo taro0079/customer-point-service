@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_06_082204) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_06_083049) do
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -23,6 +23,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_06_082204) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_points_on_customer_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "product_code"
+    t.integer "price"
+    t.string "product_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "points", "customers"
