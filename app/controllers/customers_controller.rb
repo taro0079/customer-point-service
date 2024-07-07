@@ -14,6 +14,18 @@ class CustomersController < ApplicationController
     end
   end
 
+  def show_by_code
+    @customer = Customer.find_by(jancode: params[:jancode])
+    if @customer
+      show
+    else
+      respond_to do |format|
+        format.html {redirect_to customers_path, notice: 'Product not found !'}
+        format.json { render json: { error: 'Product not found'}, status: :not_found }
+      end
+    end
+  end
+
   # GET /customers/new
   def new
     @customer = Customer.new

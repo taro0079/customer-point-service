@@ -1,5 +1,6 @@
 class PointsController < ApplicationController
   before_action :set_point, only: %i[ show edit update destroy ]
+  protect_from_forgery with: :null_session
 
   # GET /points or /points.json
   def index
@@ -13,6 +14,17 @@ class PointsController < ApplicationController
   # GET /points/new
   def new
     @point = Point.new
+  end
+
+  def calculate
+    customer = Customer.find(params[:customer_id])
+    products = Product.where(id: params[:product_ids])
+    adding_point = products.reduce(0){|sum, product| sum + product.get_point}
+    point_after = customer.point.point + adding_point
+
+    customer.point.update(point: point_after) if(false == params[:check_flag])
+
+    render json: {adding_point: adding_point, point_after: point_after, customer_id: customer.id}
   end
 
   # GET /points/1/edit
