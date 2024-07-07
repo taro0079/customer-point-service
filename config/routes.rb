@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'products/code/:product_code', to: 'products#show_by_code', as: 'product_by_code'
   resources :products
   resources :points
   resources :customers

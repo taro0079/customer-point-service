@@ -8,6 +8,19 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    respond_with_format(@product)
+  end
+
+  def show_by_code
+    product = Product.find_by(product_code: params[:product_code])
+    if product
+      respond_with_format(product)
+    else
+      respond_to do |format|
+        format.html {redirect_to products_path, notice: 'Product not found !'}
+        format.json { render json: { error: 'Product not found'}, status: :not_found }
+      end
+    end
   end
 
   # GET /products/new

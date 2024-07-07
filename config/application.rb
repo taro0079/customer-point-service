@@ -18,5 +18,14 @@ module CustomerPointService
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*' # 許可するオリジンを指定します（ワイルドカード * を使用してすべてのオリジンを許可することもできます）
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :put, :patch, :delete, :options, :head],
+          credentials: false # クッキーや認証情報を含むリクエストを許可する場合
+      end
+    end
   end
 end

@@ -8,6 +8,10 @@ class CustomersController < ApplicationController
 
   # GET /customers/1 or /customers/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: {id: @customer.id, name: @customer.name, point: @customer.point.point}}
+    end
   end
 
   # GET /customers/new
@@ -65,6 +69,6 @@ class CustomersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def customer_params
-      params.require(:customer).permit(:name)
+      params.require(:customer).permit(:name, :jancode)
     end
 end
