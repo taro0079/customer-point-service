@@ -1,6 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @customer %>
+<div>
+  <p>名前: <%= @customer.name %></p>
+  <p>保有ポイント数: <%= @customer.point.point%></p>
+  
+</div>
 
 <div>
   <%= link_to "Edit this customer", edit_customer_path(@customer) %> |
